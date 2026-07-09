@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditya Indurkhya — Data Engineer | Turning Raw Data into Stories</title>
+<meta name="description" content="Data Engineer in Seattle with 2+ years building ETL pipelines, data warehouses, and analytics infrastructure. 12M+ records/month, 45% faster queries, M.S. Data Analytics from George Mason University.">
+<meta name="author" content="Aditya Indurkhya">
+<meta name="keywords" content="data engineer, ETL, data pipelines, PostgreSQL, PySpark, AWS, Seattle, portfolio">
+<meta name="theme-color" content="#0D1117">
+<link rel="canonical" href="https://adityaindurkhya.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aditya Indurkhya — Data Engineer">
+<meta property="og:description" content="I turn raw data into stories worth acting on. 12M+ records/month, 45% faster queries, 70% fewer data issues. Explore my career through a live SQL console.">
+<meta property="og:url" content="https://adityaindurkhya.github.io/">
+<meta property="og:site_name" content="Aditya Indurkhya">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aditya Indurkhya — Data Engineer">
+<meta name="twitter:description" content="I turn raw data into stories worth acting on. Explore my career through a live SQL console.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230D1117'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' font-family='monospace' fill='%234FC3A1'%3EAI%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aditya Indurkhya",
+  "jobTitle": "Data Engineer",
+  "address": {"@type": "PostalAddress", "addressLocality": "Seattle", "addressRegion": "WA"},
+  "email": "mailto:adityaindurkhya@gmail.com",
+  "telephone": "(703) 969-1317",
+  "url": "https://adityaindurkhya.github.io/",
+  "sameAs": ["https://linkedin.com/in/adityaindurkhya1911"],
+  "alumniOf": [
+    {"@type": "CollegeOrUniversity", "name": "George Mason University"},
+    {"@type": "CollegeOrUniversity", "name": "Gyan Ganga Institute of Technology and Sciences"}
+  ],
+  "knowsAbout": ["Data Engineering", "ETL", "PostgreSQL", "PySpark", "AWS", "SQL Optimization"]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1117;
+    --surface:#151B23;
+    --surface-2:#1C232D;
+    --border:#26303B;
+    --text:#E6EDF3;
+    --muted:#8B98A8;
+    --dim:#5B6673;
+    --accent:#4FC3A1;
+    --accent-dim:#2E6F5C;
+    --warn:#E8A33D;
+    --err:#E2726A;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    cursor:none;
+  }
+  ::selection{background:var(--accent-dim); color:#fff;}
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px; position:relative;}
+
+  #cdot, #cring{position:fixed; top:0; left:0; pointer-events:none; z-index:999; border-radius:50%; will-change:transform;}
+  #cdot{width:6px; height:6px; background:var(--accent); transform:translate(-50%,-50%);}
+  #cring{width:30px; height:30px; border:1px solid var(--accent-dim); transform:translate(-50%,-50%); transition:width .18s,height .18s,border-color .18s,background .18s;}
+  #cring.hot{width:46px; height:46px; background:rgba(79,195,161,.08); border-color:var(--accent);}
+  @media(hover:none){ #cdot,#cring{display:none;} body{cursor:auto;} }
+
+  #rail{position:fixed; left:40px; top:0; bottom:0; width:2px; background:var(--border); z-index:5; display:none;}
+  #rail-fill{position:absolute; top:0; left:0; width:100%; height:0%; background:var(--accent); transition:height .08s linear;}
+  #packet{position:absolute; left:50%; transform:translateX(-50%); top:0%; width:9px; height:9px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px 2px rgba(79,195,161,.5); transition:top .08s linear;}
+  @media(min-width:1180px){ #rail{display:block;} }
+
+  nav{position:sticky; top:0; z-index:10; background:rgba(13,17,23,.88); backdrop-filter:blur(6px); border-bottom:1px solid var(--border);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px;}
+  nav .logo{font-family:var(--mono); font-weight:600; font-size:14px; color:var(--text);}
+  nav .logo span{color:var(--accent);}
+  nav ul{list-style:none; display:flex; gap:28px;}
+  nav ul a{position:relative; color:var(--muted); font-size:13px; font-family:var(--mono); letter-spacing:.02em; padding-bottom:3px;}
+  nav ul a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--accent); transition:width .2s;}
+  nav ul a:hover{color:var(--accent); text-decoration:none;}
+  nav ul a:hover::after{width:100%;}
+  @media(max-width:640px){ nav ul{display:none;} }
+
+  #hero{padding:90px 0 70px; position:relative; overflow:hidden;}
+  #netcanvas{position:absolute; inset:0; z-index:0; opacity:.55;}
+  #hero .wrap{z-index:1;}
+  .term{background:var(--surface); border:1px solid var(--border); border-radius:8px; max-width:640px; overflow:hidden; margin-bottom:44px;}
+  .term-bar{display:flex; gap:6px; padding:10px 14px; border-bottom:1px solid var(--border);}
+  .term-bar i{width:10px; height:10px; border-radius:50%; background:var(--border);}
+  .term-body{padding:18px 20px; font-family:var(--mono); font-size:13px; color:var(--muted); min-height:118px;}
+  .term-body .prompt{color:var(--accent);}
+  .term-body .out{color:var(--text);}
+  .cursor2{display:inline-block; width:7px; height:14px; background:var(--accent); vertical-align:-2px; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  h1{font-family:var(--mono); font-size:clamp(30px,5vw,46px); font-weight:600; line-height:1.15; letter-spacing:-.01em;}
+  #hero p.role{font-family:var(--mono); color:var(--muted); font-size:15px; margin-top:14px;}
+  #hero p.lede{max-width:600px; margin-top:20px; font-size:16px; color:#C7D0DA;}
+
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-top:40px;}
+  .stat{background:var(--surface); padding:18px 14px; text-align:left; transition:background .2s;}
+  .stat:hover{background:var(--surface-2);}
+  .stat .n{font-family:var(--mono); font-size:26px; font-weight:600; color:var(--accent);}
+  .stat .l{font-size:11.5px; color:var(--muted); margin-top:6px; letter-spacing:.02em;}
+  @media(max-width:640px){ .stats{grid-template-columns:repeat(2,1fr);} }
+
+  section{padding:64px 0; border-top:1px solid var(--border); scroll-margin-top:70px;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px;}
+  h1 .accentline{color:var(--accent); text-shadow:0 0 32px rgba(79,195,161,.35);}
+  #toTop{position:fixed; right:22px; bottom:22px; z-index:150; width:42px; height:42px; border-radius:10px;
+    background:var(--surface-2); border:1px solid var(--border); color:var(--accent); font-family:var(--mono);
+    font-size:16px; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .25s, border-color .15s;}
+  #toTop.show{opacity:1; pointer-events:auto;}
+  #toTop:hover{border-color:var(--accent);}
+  .eyebrow{font-family:var(--mono); font-size:12px; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px;}
+  h2{font-family:var(--mono); font-size:24px; font-weight:600; margin-bottom:28px;}
+  .sec-intro{color:var(--muted); max-width:560px; margin-bottom:32px; font-size:14.5px;}
+
+  #about .grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px;}
+  #about p{color:#C7D0DA; margin-bottom:14px; font-size:15px;}
+  .infobox{background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:20px;}
+  .infobox dl{display:grid; grid-template-columns:auto 1fr; gap:8px 14px; font-size:13.5px;}
+  .infobox dt{color:var(--dim); font-family:var(--mono);}
+  .infobox dd{color:var(--text);}
+  .scene{background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px; overflow:hidden;}
+  .scene svg{display:block; width:100%; height:auto;}
+  #chartline{stroke-dasharray:220; stroke-dashoffset:220; animation:drawline 3.2s ease forwards infinite;}
+  @keyframes drawline{0%{stroke-dashoffset:220;} 60%{stroke-dashoffset:0;} 85%{stroke-dashoffset:0; opacity:1;} 100%{stroke-dashoffset:0; opacity:0;}}
+  .bar{transform-origin:bottom; transform-box:fill-box; animation:growbar 2.4s ease infinite alternate;}
+  .b1{animation-delay:0s;} .b2{animation-delay:.3s;} .b3{animation-delay:.6s;} .b4{animation-delay:.9s;}
+  @keyframes growbar{0%{transform:scaleY(.55);} 100%{transform:scaleY(1);}}
+  .dp{animation:floatup 4s linear infinite; opacity:0;}
+  .d1{animation-delay:0s;} .d2{animation-delay:.8s;} .d3{animation-delay:1.6s;} .d4{animation-delay:2.2s;} .d5{animation-delay:3s;}
+  @keyframes floatup{0%{opacity:0; transform:translateY(24px);} 25%{opacity:1;} 75%{opacity:1;} 100%{opacity:0; transform:translateY(-18px);}}
+  #armL{animation:typeL .5s ease-in-out infinite alternate; transform-origin:200px 258px;}
+  #armR{animation:typeR .5s ease-in-out infinite alternate; animation-delay:.25s; transform-origin:220px 258px;}
+  @keyframes typeL{0%{transform:rotate(0deg);} 100%{transform:rotate(4deg);}}
+  @keyframes typeR{0%{transform:rotate(0deg);} 100%{transform:rotate(-4deg);}}
+  .blinktxt{animation:blink 1.4s step-end infinite;}
+  @media(max-width:760px){ #about .grid{grid-template-columns:1fr;} }
+
+  .stage{position:relative; padding-left:34px; padding-bottom:40px; border-left:2px solid var(--border);}
+  .stage:last-child{padding-bottom:4px;}
+  .stage::before{content:''; position:absolute; left:-7px; top:2px; width:12px; height:12px; border-radius:50%; background:var(--bg); border:2px solid var(--accent);}
+  .stage .tag{font-family:var(--mono); font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:.08em;}
+  .stage h3{font-size:17px; font-weight:600; margin:6px 0 2px;}
+  .stage .meta{font-size:13px; color:var(--muted); font-family:var(--mono); margin-bottom:10px;}
+  .stage ul{padding-left:18px; color:#C7D0DA; font-size:14.5px;}
+  .stage li{margin-bottom:6px;}
+  .stagetabs{display:flex; gap:8px; margin:12px 0 14px;}
+  .stab{font-family:var(--mono); font-size:11.5px; color:var(--muted); background:var(--surface); border:1px solid var(--border); padding:6px 13px; border-radius:16px; cursor:pointer; transition:all .15s;}
+  .stab:hover{border-color:var(--accent-dim); color:var(--text);}
+  .stab.active{background:var(--accent-dim); border-color:var(--accent); color:#EAF7F2;}
+  .pane{display:none; animation:fadeIn .3s ease;}
+  .pane.show{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+  .learncols{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media(max-width:680px){ .learncols{grid-template-columns:1fr;} }
+  .learncols h5{font-family:var(--mono); font-size:11px; color:var(--warn); text-transform:uppercase; letter-spacing:.07em; margin-bottom:8px;}
+  .learncols ul{padding-left:18px; color:#C7D0DA; font-size:13.5px;}
+  .learncols li{margin-bottom:6px;}
+
+  .arsenal{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media(max-width:680px){ .arsenal{grid-template-columns:1fr;} }
+  .weapon{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px; cursor:pointer; transition:border-color .2s, transform .2s;}
+  .weapon:hover{border-color:var(--accent); transform:translateY(-2px);}
+  .wtop{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
+  .wname{font-family:var(--mono); font-weight:600; font-size:15px;}
+  .wsub{font-family:var(--mono); font-size:11px; color:var(--dim);}
+  .meter{height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden; position:relative;}
+  .meter .fill{height:100%; width:0%; background:linear-gradient(90deg, var(--accent-dim), var(--accent)); border-radius:3px; transition:width 1.2s cubic-bezier(.2,.7,.3,1); position:relative;}
+  .meter .fill::after{content:''; position:absolute; top:0; right:0; width:26px; height:100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,.35)); animation:shimmer 2.2s ease-in-out infinite;}
+  @keyframes shimmer{0%,100%{opacity:0;} 50%{opacity:1;}}
+  .wnote{font-size:12px; color:var(--muted); margin-top:9px;}
+
+  #projSearch{margin-left:auto; background:var(--surface); border:1px solid var(--border); border-radius:20px; color:var(--text); font-family:var(--mono); font-size:12.5px; padding:7px 14px; outline:none; min-width:170px;}
+  #projSearch:focus{border-color:var(--accent);}
+  #projSearch::placeholder{color:var(--dim);}
+  .card.featured{grid-column:1 / -1; border-color:var(--accent-dim); position:relative;}
+  .featbadge{font-family:var(--mono); font-size:10.5px; color:var(--warn); letter-spacing:.06em; text-transform:uppercase; margin-bottom:8px;}
+  .featstats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:14px 0;}
+  @media(max-width:640px){ .featstats{grid-template-columns:repeat(2,1fr);} }
+  .featstats div{background:var(--surface-2); border:1px solid var(--border); border-radius:7px; padding:10px 12px;}
+  .featstats b{display:block; font-family:var(--mono); font-size:17px; color:var(--accent);}
+  .featstats i{font-style:normal; font-size:10.5px; color:var(--muted);}
+
+  /* CONSOLE */
+  .console{background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;}
+  .console-bar{display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid var(--border);}
+  .console-bar .t{font-family:var(--mono); font-size:12px; color:var(--dim);}
+  .console-presets{display:flex; flex-wrap:wrap; gap:8px; padding:14px 16px 0;}
+  .preset{font-family:var(--mono); font-size:11.5px; color:var(--muted); background:var(--surface-2); border:1px solid var(--border); padding:6px 11px; border-radius:5px; cursor:pointer;}
+  .preset:hover{border-color:var(--accent-dim); color:var(--text);}
+  .console-input-row{display:flex; align-items:center; gap:10px; padding:14px 16px; border-top:1px solid var(--border); margin-top:14px;}
+  .console-input-row .p{font-family:var(--mono); color:var(--accent); font-size:14px;}
+  #sqlInput{flex:1; background:transparent; border:none; outline:none; color:var(--text); font-family:var(--mono); font-size:14px;}
+  #sqlInput::placeholder{color:var(--dim);}
+  .runbtn{font-family:var(--mono); font-size:12px; background:var(--accent-dim); border:1px solid var(--accent); color:#EAF7F2; padding:7px 14px; border-radius:5px; cursor:pointer;}
+  .runbtn:hover{background:var(--accent);}
+  #sqlOut{padding:16px; font-family:var(--mono); font-size:12.5px; max-height:340px; overflow:auto;}
+  #sqlOut table{border-collapse:collapse; width:100%;}
+  #sqlOut th{text-align:left; color:var(--warn); font-weight:600; padding:6px 10px; border-bottom:1px solid var(--border); white-space:nowrap;}
+  #sqlOut td{padding:6px 10px; border-bottom:1px solid var(--border); color:#C7D0DA; white-space:nowrap;}
+  #sqlOut tr:hover td{background:var(--surface-2);}
+  #sqlOut .meta-row{color:var(--dim); margin-top:10px; font-size:11.5px;}
+  #sqlOut .err{color:var(--err);}
+  #sqlOut .hint{color:var(--dim);}
+  #sqlOut .egg{color:var(--warn);}
+
+  .filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px;}
+  .chip{font-family:var(--mono); font-size:12.5px; color:var(--muted); background:var(--surface); border:1px solid var(--border); padding:7px 14px; border-radius:20px; cursor:pointer; transition:all .15s;}
+  .chip:hover{border-color:var(--accent-dim); color:var(--text);}
+  .chip.active{background:var(--accent-dim); border-color:var(--accent); color:#EAF7F2;}
+  .pgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px; perspective:900px;}
+  @media(max-width:720px){ .pgrid{grid-template-columns:1fr;} }
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px; transition:border-color .15s, box-shadow .2s; transform-style:preserve-3d; will-change:transform; cursor:pointer;}
+  .card:hover{border-color:var(--accent-dim); box-shadow:0 12px 30px -14px rgba(0,0,0,.6);}
+  .card .meta{font-size:11.5px; color:var(--dim); font-family:var(--mono); margin-bottom:8px;}
+  .card h3{font-size:15.5px; font-weight:600; margin-bottom:8px;}
+  .card p{font-size:13.5px; color:var(--muted); margin-bottom:12px;}
+  .tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tags span{font-family:var(--mono); font-size:10.5px; color:var(--accent); background:rgba(79,195,161,.08); border:1px solid var(--accent-dim); padding:3px 8px; border-radius:4px;}
+  .card.hide{display:none;}
+  .card.pulse{animation:pulseGlow 1s ease;}
+  @keyframes pulseGlow{0%{box-shadow:0 0 0 0 rgba(79,195,161,.5);} 100%{box-shadow:0 0 0 14px rgba(79,195,161,0);}}
+
+  .skillgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  @media(max-width:640px){ .skillgrid{grid-template-columns:1fr;} }
+  .skillgroup h4{font-family:var(--mono); font-size:12px; color:var(--warn); text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px;}
+  .skillgroup .pills{display:flex; flex-wrap:wrap; gap:7px;}
+  .skillgroup .pills span{font-size:13px; background:var(--surface-2); border:1px solid var(--border); padding:6px 11px; border-radius:6px; color:#D6DEE6; cursor:pointer; transition:border-color .15s,color .15s;}
+  .skillgroup .pills span[data-tag]:hover{border-color:var(--accent); color:var(--accent);}
+
+  .twocol{display:grid; grid-template-columns:1fr 1fr; gap:32px;}
+  @media(max-width:720px){ .twocol{grid-template-columns:1fr;} }
+  .listcard{background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:20px;}
+  .listcard h4{font-family:var(--mono); font-size:12px; color:var(--accent); text-transform:uppercase; margin-bottom:14px; letter-spacing:.06em;}
+  .listcard li{list-style:none; font-size:14px; color:#C7D0DA; padding:9px 0; border-bottom:1px solid var(--border);}
+  .listcard li:last-child{border-bottom:none;}
+  .listcard .sub{color:var(--muted); font-size:12.5px;}
+
+  #contact{text-align:left;}
+  .contact-links{display:flex; flex-wrap:wrap; gap:14px; margin-top:22px;}
+  .clink{display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:13.5px; background:var(--surface); border:1px solid var(--border); padding:12px 18px; border-radius:8px; color:var(--text); cursor:pointer;}
+  .clink:hover{border-color:var(--accent); text-decoration:none; color:var(--accent);}
+
+  footer{padding:30px 0; text-align:center; color:var(--dim); font-size:12.5px; font-family:var(--mono);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  #modalOverlay{position:fixed; inset:0; background:rgba(3,5,7,.7); backdrop-filter:blur(3px); z-index:200; display:none; align-items:center; justify-content:center; padding:24px;}
+  #modalOverlay.show{display:flex;}
+  #modalBox{background:var(--surface); border:1px solid var(--border); border-radius:12px; max-width:560px; width:100%; padding:28px; max-height:82vh; overflow:auto;}
+  #modalBox .meta{font-family:var(--mono); font-size:11.5px; color:var(--dim); margin-bottom:10px;}
+  #modalBox h3{font-size:19px; margin-bottom:14px;}
+  #modalBox p{color:#C7D0DA; font-size:14.5px; margin-bottom:14px;}
+  #modalClose{float:right; background:none; border:none; color:var(--muted); font-family:var(--mono); font-size:13px; cursor:pointer;}
+  #modalClose:hover{color:var(--accent);}
+
+  #toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--surface-2); border:1px solid var(--accent-dim); color:var(--accent); font-family:var(--mono); font-size:12.5px; padding:10px 18px; border-radius:8px; opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:300;}
+  #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+</style>
+</head>
+<body>
+
+<div id="cring"></div>
+<div id="cdot"></div>
+<div id="toast"></div>
+
+<div id="modalOverlay">
+  <div id="modalBox">
+    <button id="modalClose">close ✕</button>
+    <div class="meta" id="modalMeta"></div>
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody"></p>
+    <div class="tags" id="modalTags"></div>
+  </div>
+</div>
+
+<div id="rail"><div id="rail-fill"></div><div id="packet"></div></div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">aditya<span>@</span>data</div>
+    <ul>
+      <li><a href="#about">about</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#console">console</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="hero">
+  <canvas id="netcanvas"></canvas>
+  <div class="wrap">
+    <div class="term">
+      <div class="term-bar"><i></i><i></i><i></i></div>
+      <div class="term-body" id="termBody"></div>
+    </div>
+    <h1>I turn raw data into<br>stories <span class="accentline">worth acting on.</span></h1>
+    <p class="role">Aditya Indurkhya — Data Engineer, Seattle WA</p>
+    <p class="lede">M.S. Data Analytics graduate (George Mason University) with 2+ years shaping messy, high-volume operational data into clean warehouses, trusted metrics, and dashboards people actually use. Every dataset has a story — my job is making sure it's told accurately, and fast. Scroll down — there's a live query console further in if you want to poke at the data yourself.</p>
+
+    <div class="stats">
+      <div class="stat"><div class="n" data-count="12" data-suffix="M+">0</div><div class="l">records processed / month</div></div>
+      <div class="stat"><div class="n" data-count="45" data-suffix="%">0</div><div class="l">faster p95 query time</div></div>
+      <div class="stat"><div class="n" data-count="70" data-suffix="%">0</div><div class="l">fewer data quality issues</div></div>
+      <div class="stat"><div class="n" data-count="99" data-suffix="%">0</div><div class="l">pipeline uptime, ICSS</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap reveal">
+    <div class="eyebrow">01 — about</div>
+    <h2>The person behind the queries</h2>
+    <div class="grid">
+      <div>
+        <p>I grew up in Jabalpur, India, and finished my B.Tech in Computer Science there in 2024. That same summer, I packed my life into two suitcases and moved across the world to start my Master's at George Mason University — my first time living outside India.</p>
+        <p>It was harder than any exam I'd ever taken. New country, new accents, new grading systems, figuring out apartments and groceries and winters alone, all while my family was nine and a half hours ahead on the clock. There were semesters where the only familiar thing in my day was a SQL prompt.</p>
+        <p>But that's exactly what shaped how I work. Moving countries teaches you the same things good engineering does: plan for what can go wrong, ask for help earlier than your ego wants to, and keep showing up when things break. I graduated with a 3.73 GPA, led a six-person capstone team, and landed in Seattle — a long way from Jabalpur, and I'm just getting started.</p>
+      </div>
+      <div>
+        <div class="scene" aria-label="Illustration of a data analyst working at a desk with charts">
+          <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img">
+            <title>Analyst at work</title>
+            <desc>A person at a desk with two monitors showing live charts, with data points floating into the screens.</desc>
+
+            <circle class="dp d1" cx="70" cy="70" r="3" fill="#4FC3A1"/>
+            <circle class="dp d2" cx="110" cy="45" r="2.5" fill="#E8A33D"/>
+            <circle class="dp d3" cx="45" cy="120" r="2.5" fill="#4FC3A1"/>
+            <circle class="dp d4" cx="360" cy="60" r="3" fill="#4FC3A1"/>
+            <circle class="dp d5" cx="385" cy="110" r="2.5" fill="#E8A33D"/>
+
+            <rect x="40" y="238" width="340" height="10" rx="3" fill="#26303B"/>
+            <rect x="70" y="248" width="10" height="40" rx="2" fill="#1C232D"/>
+            <rect x="340" y="248" width="10" height="40" rx="2" fill="#1C232D"/>
+
+            <g>
+              <rect x="60" y="120" width="130" height="90" rx="6" fill="#151B23" stroke="#26303B"/>
+              <rect x="118" y="210" width="14" height="16" fill="#1C232D"/>
+              <rect x="100" y="226" width="50" height="6" rx="2" fill="#26303B"/>
+              <polyline id="chartline" points="72,190 92,172 108,180 126,152 144,160 162,138 178,146"
+                fill="none" stroke="#4FC3A1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="72" y1="196" x2="178" y2="196" stroke="#26303B" stroke-width="1.5"/>
+            </g>
+
+            <g>
+              <rect x="230" y="120" width="130" height="90" rx="6" fill="#151B23" stroke="#26303B"/>
+              <rect x="288" y="210" width="14" height="16" fill="#1C232D"/>
+              <rect x="270" y="226" width="50" height="6" rx="2" fill="#26303B"/>
+              <rect class="bar b1" x="246" y="160" width="16" height="40" rx="2" fill="#2E6F5C"/>
+              <rect class="bar b2" x="270" y="146" width="16" height="54" rx="2" fill="#4FC3A1"/>
+              <rect class="bar b3" x="294" y="168" width="16" height="32" rx="2" fill="#2E6F5C"/>
+              <rect class="bar b4" x="318" y="136" width="16" height="64" rx="2" fill="#E8A33D"/>
+            </g>
+
+            <g id="person">
+              <ellipse cx="210" cy="292" rx="60" ry="6" fill="#10151C"/>
+              <rect x="196" y="252" width="28" height="36" rx="9" fill="#2E6F5C"/>
+              <circle cx="210" cy="236" r="14" fill="#C99B76"/>
+              <path d="M196 236 a14 14 0 0 1 28 0 v-6 a14 10 0 0 0 -28 0 z" fill="#2C2C2A"/>
+              <g id="armL"><rect x="176" y="256" width="26" height="8" rx="4" fill="#2E6F5C" transform="rotate(18 176 260)"/></g>
+              <g id="armR"><rect x="218" y="256" width="26" height="8" rx="4" fill="#2E6F5C" transform="rotate(-18 244 260)"/></g>
+              <rect x="164" y="276" width="92" height="6" rx="2" fill="#1C232D"/>
+              <rect x="186" y="270" width="48" height="7" rx="2" fill="#26303B"/>
+            </g>
+
+            <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#5B6673">
+              <text x="66" y="114" class="blinktxt">query running…</text>
+              <text x="236" y="114">rows/sec: 48,112</text>
+            </g>
+          </svg>
+        </div>
+        <div class="infobox" style="margin-top:16px;">
+          <dl>
+            <dt>Based in</dt><dd>Seattle, WA</dd>
+            <dt>Education</dt><dd>M.S. Data Analytics, George Mason University (GPA 3.73)</dd>
+            <dt>Prior degree</dt><dd>B.Tech, Computer Science & Engineering</dd>
+            <dt>Focus</dt><dd>ETL/ELT, warehousing, SQL optimization</dd>
+            <dt>Stack</dt><dd>Python, SQL, PySpark, PostgreSQL, AWS</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap reveal">
+    <div class="eyebrow">02 — experience</div>
+    <h2>The story so far</h2>
+    <p class="sec-intro">Three chapters: learn the craft at a startup, scale it in production, then sharpen it in grad school research.</p>
+
+    <div class="stage">
+      <div class="tag">chapter 01 — learn</div>
+      <h3>Data Engineering Intern, D'Festo Private Limited</h3>
+      <div class="meta">Jabalpur, India · May 2021 – May 2022</div>
+      <div class="stagetabs">
+        <button class="stab active" data-pane="did">what I did</button>
+        <button class="stab" data-pane="learned">what I learned</button>
+      </div>
+      <div class="pane did show">
+        <ul>
+          <li>Built the company's first end-to-end ETL and reporting system, replacing manual spreadsheet tracking with self-running pipelines ingesting 2-5M daily records from 3-4 sources.</li>
+          <li>Cut frequent reporting query times 35-40% (20-30s → 12-18s) through strategic PostgreSQL indexing; resolved 20-25 data quality defects.</li>
+          <li>Shipped 4-5 Power BI dashboards with DAX-based KPIs and kept 3 core pipelines healthy, resolving 10-15 ingestion alerts a month.</li>
+        </ul>
+      </div>
+      <div class="pane learned">
+        <div class="learncols">
+          <div><h5>Technical</h5><ul>
+            <li>Python + pandas ingestion patterns, from zero to production</li>
+            <li>PostgreSQL indexing — when it helps and when it doesn't</li>
+            <li>Power BI and DAX for KPIs people actually read</li>
+          </ul></div>
+          <div><h5>Beyond code</h5><ul>
+            <li>Being the only "data person" means writing docs nobody asked for — until they need them</li>
+            <li>How to translate a manager's vague ask into a concrete data question</li>
+            <li>Owning something end-to-end, including the 2am alert</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="tag">chapter 02 — scale</div>
+      <h3>Data Engineer, ICSS</h3>
+      <div class="meta">Jabalpur, India · Jul 2022 – Aug 2023</div>
+      <div class="stagetabs">
+        <button class="stab active" data-pane="did">what I did</button>
+        <button class="stab" data-pane="learned">what I learned</button>
+      </div>
+      <div class="pane did show">
+        <ul>
+          <li>Scaled ETL pipelines to 12M+ records/month across 8-10 heterogeneous sources at 95%+ uptime, cutting daily execution time 30% (2.0hrs → 1.4hrs).</li>
+          <li>Redesigned indexes and rewrote hot-path SQL on 50GB+ Postgres/Redshift datasets, reducing p95 query time from 35s to 18s.</li>
+          <li>Built a Python validation framework with anomaly alerting, dropping daily data issues from 12-15% to 3-5% and reclaiming 15-20 hours/week of manual investigation.</li>
+        </ul>
+      </div>
+      <div class="pane learned">
+        <div class="learncols">
+          <div><h5>Technical</h5><ul>
+            <li>PySpark partitioning and job tuning at real scale</li>
+            <li>Redshift vs. Postgres trade-offs on 50GB+ workloads</li>
+            <li>Designing validation frameworks that catch issues before analysts do</li>
+          </ul></div>
+          <div><h5>Beyond code</h5><ul>
+            <li>Writing architecture docs a 4-5 person team can actually follow</li>
+            <li>Negotiating priorities with 12-15 analysts who all think theirs is urgent</li>
+            <li>The discipline of measuring before and after every optimization</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="tag">chapter 03 — refine</div>
+      <h3>M.S. Data Analytics, George Mason University</h3>
+      <div class="meta">Fairfax, VA · Aug 2024 – May 2026 · GPA 3.73</div>
+      <div class="stagetabs">
+        <button class="stab active" data-pane="learned">what I learned</button>
+        <button class="stab" data-pane="did">highlights</button>
+      </div>
+      <div class="pane learned show">
+        <div class="learncols">
+          <div><h5>Technical</h5><ul>
+            <li>Geospatial engineering: PostGIS, spatial indexing, partitioning for sub-300ms queries</li>
+            <li>Shipping services, not just scripts — Docker, FastAPI, request validation</li>
+            <li>Statistical rigor: ANOVA, hypothesis testing, regression diagnostics, knowing when a model is lying to you</li>
+            <li>Simulation thinking — Monte Carlo methods for decisions under uncertainty</li>
+          </ul></div>
+          <div><h5>Beyond code</h5><ul>
+            <li>Leading a 6-person team: scoping, unblocking people, taking blame, sharing credit</li>
+            <li>Presenting to stakeholders who don't care how it works, only whether they can trust it</li>
+            <li>Co-authoring and presenting a research paper at a regional conference</li>
+            <li>Adapting to a new country's classroom, work culture, and pace — fast</li>
+          </ul></div>
+        </div>
+      </div>
+      <div class="pane did">
+        <ul>
+          <li>Led data engineering for a 6-person capstone (ClimateAI): PostgreSQL/PostGIS warehouse, 250K+ climate records at 95%+ completeness, 99% query success rate in demos.</li>
+          <li>Completed 10 substantial projects spanning ETL, ML, simulation, and visualization — all listed below.</li>
+          <li>Graduated with a 3.73 GPA while adjusting to life in a new country.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="console">
+  <div class="wrap reveal">
+    <div class="eyebrow">03 — the console</div>
+    <h2>Don't take my word for it. Query it.</h2>
+    <p class="sec-intro">This is a real (mocked) SQL console over my own career data. Run a preset or write your own query — try <code style="color:var(--accent)">SELECT * FROM projects WHERE tag='ml'</code> or make one up.</p>
+
+    <div class="console">
+      <div class="console-bar"><span class="t">psql — aditya_db</span><span class="t" id="clock">●</span></div>
+      <div class="console-presets">
+        <button class="preset" data-q="SELECT * FROM experience;">SELECT * FROM experience;</button>
+        <button class="preset" data-q="SELECT * FROM projects WHERE tag='ml';">projects WHERE tag='ml'</button>
+        <button class="preset" data-q="SELECT * FROM skills WHERE category='cloud';">skills WHERE category='cloud'</button>
+        <button class="preset" data-q="SELECT * FROM contact;">SELECT * FROM contact;</button>
+      </div>
+      <div class="console-input-row">
+        <span class="p">aditya_db=#</span>
+        <input id="sqlInput" type="text" placeholder="SELECT * FROM projects;" autocomplete="off" spellcheck="false">
+        <button class="runbtn" id="runBtn">run ▸</button>
+      </div>
+      <div id="sqlOut"></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap reveal">
+    <div class="eyebrow">04 — projects</div>
+    <h2>10 projects, filtered by what they're actually about</h2>
+    <p class="sec-intro">Everything here is coursework or capstone work from the M.S. program, listed with real numbers. Click a card for the full write-up.</p>
+
+    <div class="filters" id="filters">
+      <button class="chip active" data-f="all">all</button>
+      <button class="chip" data-f="de">data engineering</button>
+      <button class="chip" data-f="ml">ml & analytics</button>
+      <button class="chip" data-f="db">databases & sql</button>
+      <button class="chip" data-f="viz">visualization</button>
+      <button class="chip" data-f="sim">simulation</button>
+      <input id="projSearch" type="text" placeholder="search projects…" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="pgrid" id="pgrid">
+
+      <div class="card featured" data-tags="de db" data-title="ClimateAI — geospatial ETL capstone" data-meta="Jan – May 2026 · Team lead, 6 members" data-body="Led data engineering for a 6-person capstone team. Designed the schema and transformation logic for a PostgreSQL/PostGIS warehouse that ingested 250K+ heterogeneous climate records at 95%+ data completeness. Optimized spatial indexing and table partitioning to hit sub-300ms response times on complex geospatial queries, and built an automated validation layer (missing values, invalid coordinates, outliers) with pipeline-health monitoring sustaining 96%+ uptime. Deployed Dockerized FastAPI services exposing SQL-backed retrieval with structured request validation, sustaining a 99% query success rate through stakeholder demos and the final evaluation." data-tagsdisplay="PostGIS,Docker,FastAPI,ETL">
+        <div class="featbadge">★ flagship project</div>
+        <div class="meta">Jan – May 2026 · led a 6-person team</div>
+        <h3>ClimateAI — geospatial ETL capstone</h3>
+        <p>Designed and led the data engineering for a geospatial climate warehouse: PostgreSQL/PostGIS schema, automated validation layer, and Dockerized FastAPI services.</p>
+        <div class="featstats">
+          <div><b>250K+</b><i>records ingested</i></div>
+          <div><b>&lt;300ms</b><i>spatial queries</i></div>
+          <div><b>99%</b><i>query success</i></div>
+          <div><b>96%+</b><i>pipeline uptime</i></div>
+        </div>
+        <div class="tags"><span>PostGIS</span><span>Docker</span><span>FastAPI</span><span>ETL</span></div>
+      </div>
+
+      <div class="card" data-tags="ml" data-title="Employee attrition & engagement modeling" data-meta="Jan – May 2025" data-body="Analyzed 8,000+ multi-year employee records with SQL and Python, engineering 25+ features covering tenure, salary history, promotion gaps, and department transfers. Trained regression and classification models (R-squared 0.65-0.72, 80%+ test accuracy) to identify the top 5 attrition drivers, then validated findings through hypothesis testing (t-tests, chi-square) across department and tenure cohorts. Delivered interactive Power BI dashboards with attrition segmentation, employee risk scoring, and retention KPIs that informed HR workforce-planning discussions." data-tagsdisplay="Python,SQL,Power BI">
+        <div class="meta">Jan – May 2025</div>
+        <h3>Employee attrition & engagement modeling</h3>
+        <p>Engineered 25+ features across 8,000+ employee records; trained regression/classification models (R²: 0.65–0.72, 80%+ accuracy) and validated top attrition drivers with t-tests and chi-square testing.</p>
+        <div class="tags"><span>Python</span><span>SQL</span><span>Power BI</span></div>
+      </div>
+
+      <div class="card" data-tags="ml" data-title="Pavement deterioration analysis" data-meta="Aug – Dec 2024 · Co-authored paper" data-body="Developed Python preprocessing pipelines (Pandas, scikit-learn, statsmodels) for 18,000+ pavement inspection records spanning 3 years, deriving 30+ features covering weather conditions, traffic patterns, and maintenance history. A Random Forest model achieved R²=0.728 against just 0.060 for linear regression; one-way ANOVA confirmed pavement type as a statistically significant driver of cracking (p=0.0013). Diagnostics (residual and Q-Q plots) surfaced heteroscedasticity, guiding a recommendation toward ML-based modeling for infrastructure planning. Co-authored a research paper on the methodology and presented findings at a regional engineering conference." data-tagsdisplay="scikit-learn,statsmodels,ANOVA">
+        <div class="meta">Aug – Dec 2024</div>
+        <h3>Pavement deterioration analysis</h3>
+        <p>Preprocessed 18,000+ inspection records and derived 30+ features. Random Forest hit R²=0.728 vs. 0.060 for linear regression; ANOVA confirmed pavement type as a significant driver (p=0.0013). Co-authored a paper presented at a regional conference.</p>
+        <div class="tags"><span>scikit-learn</span><span>statsmodels</span><span>ANOVA</span></div>
+      </div>
+
+      <div class="card" data-tags="ml" data-title="Veggie Mingle — matching algorithm" data-meta="Sep – Nov 2025" data-body="Evaluated three classification models — Decision Tree, Random Forest, and Gradient Boosting — to identify the best-performing algorithm for a dating app's user-matching system. Random Forest won out at 70.3% accuracy against 59.7% and 59.9% for the alternatives. Profile completeness, lifestyle alignment (diet type, cuisine, exercise habits), and engagement signals (response rate, event attendance) proved to be stronger predictors of successful matches than demographic variables like age and income, leading to product recommendations around profile-completion prompts and engagement nudges." data-tagsdisplay="Random Forest,model comparison">
+        <div class="meta">Sep – Nov 2025</div>
+        <h3>Veggie Mingle — matching algorithm</h3>
+        <p>Compared Decision Tree, Random Forest, and Gradient Boosting for a dating app's matching system; Random Forest won at 70.3% accuracy. Profile completeness and lifestyle alignment outweighed demographics as predictors.</p>
+        <div class="tags"><span>Random Forest</span><span>model comparison</span></div>
+      </div>
+
+      <div class="card" data-tags="sim" data-title="Airline revenue management simulation" data-meta="Jan – May 2025" data-body="Built a demand-uncertainty simulation for a three-route day with stochastic total demand and class fractions, evaluating pricing, capacity, and seat-mix decisions across First and Tourist Class. Ran revenue, cost, and profit across 1,000 Monte Carlo trials — the baseline configuration (34 Tourist / 3 First) yielded an average daily profit of $2,841.35 with a 0.73 break-even probability against the $100,000 fixed operating cost. A simulation-based search over seat allocation found the true optimum at 6 First / 28 Tourist, with a maximum modeled profit of $10,382.39." data-tagsdisplay="Monte Carlo,Excel modeling">
+        <div class="meta">Jan – May 2025</div>
+        <h3>Airline revenue management simulation</h3>
+        <p>Monte Carlo simulation (1,000 trials) across a 3-route day under stochastic demand. Optimized seat-mix search found 6 First / 28 Tourist as the max-profit allocation, with a 0.73 break-even probability at baseline.</p>
+        <div class="tags"><span>Monte Carlo</span><span>Excel modeling</span></div>
+      </div>
+
+      <div class="card" data-tags="sim" data-title="Stochastic finance & customer lifetime value" data-meta="Jan – May 2025" data-body="Built a Monte Carlo retirement planner assuming normal annual returns (mean 12%, std dev 2%). A baseline $3,000/year contribution produced an expected balance of $723,998 with only a 0.36% chance of reaching $1M — solving backward found the contribution levels needed for a $1M mean ($4,143.66/year) and a 90% success rate ($4,100.30/year). Separately modeled customer lifetime value with discounting and retention dynamics, showing average NPV rising from $212.57 at 85% retention to $301.68 at 90% and $444.04 at 95%." data-tagsdisplay="Excel simulation,sensitivity analysis">
+        <div class="meta">Jan – May 2025</div>
+        <h3>Stochastic finance & customer lifetime value</h3>
+        <p>Monte Carlo retirement planner (μ=12%, σ=2%) solving for required contributions at 90% success. Modeled CLV under retention scenarios: NPV rising from $212.57 at 85% retention to $444.04 at 95%.</p>
+        <div class="tags"><span>Excel simulation</span><span>sensitivity analysis</span></div>
+      </div>
+
+      <div class="card" data-tags="ml" data-title="Credit card churn prediction" data-meta="Jan – Mar 2025" data-body="Built an end-to-end churn classification pipeline predicting credit card account closures from demographics, engagement, spending ratios, utilization, and tenure. Exploratory analysis revealed a clear income split: closed-account customers averaged roughly $52K versus $78.5K for active customers, with 40% of closures coming from under-$50K earners versus 18% among active customers — motivating income-linked segmentation. Engineered behavior features like quarter-over-quarter spend and transaction ratios, then tuned classifier thresholds to balance recall on at-risk customers against precision for outreach cost control." data-tagsdisplay="Python,classification">
+        <div class="meta">Jan – Mar 2025</div>
+        <h3>Credit card churn prediction</h3>
+        <p>End-to-end churn pipeline on demographics, spending ratios, and utilization. Found closed accounts averaged $52K income vs. $78.5K for active; engineered quarter-over-quarter spend ratio features to boost signal.</p>
+        <div class="tags"><span>Python</span><span>classification</span></div>
+      </div>
+
+      <div class="card" data-tags="viz" data-title="Glacier data exploration" data-meta="Aug – Dec 2024" data-body="Conducted comprehensive exploration of a glacier inventory dataset using Pandas, NumPy, and Matplotlib — adding computed columns, generating statistical summaries, and visualizing relationships between total area, mean width, mean length, and glacier activity. Integrated OS tools and SQL queries for efficient data handling, and identified the glaciers with the greatest retreat and total area, discussing the spatial and climatic patterns behind them." data-tagsdisplay="pandas,matplotlib">
+        <div class="meta">Aug – Dec 2024</div>
+        <h3>Glacier data exploration</h3>
+        <p>Explored a glacier inventory dataset with Pandas and NumPy, adding computed columns and visualizing relationships between area, width, length, and activity to surface the largest-retreat glaciers.</p>
+        <div class="tags"><span>pandas</span><span>matplotlib</span></div>
+      </div>
+
+      <div class="card" data-tags="db" data-title="Library management system" data-meta="Aug – Dec 2024" data-body="Designed a normalized relational schema for a public library covering members, staff, materials, authorship, borrowing, catalogs, and genres, with clearly defined keys and cardinalities for data integrity. Implemented the database in MySQL Workbench, creating DDL for 8 core tables with foreign keys enforcing relationships and supporting transactional workflows. Loaded seed data from CSV and built indexed queries for availability, overdue detection, top-borrowed items, and multi-author materials — plus analytical SQL for circulation insights like genre popularity and monthly borrow counts." data-tagsdisplay="MySQL,schema design">
+        <div class="meta">Aug – Dec 2024</div>
+        <h3>Library management system</h3>
+        <p>Designed a normalized relational schema (8 core tables) in MySQL for members, materials, and borrowing. Built indexed queries for overdue detection and top-borrowed items, plus circulation analytics for staffing decisions.</p>
+        <div class="tags"><span>MySQL</span><span>schema design</span></div>
+      </div>
+
+      <div class="card" data-tags="viz" data-title="Pancreatic cancer micromap visualization" data-meta="Aug – Dec 2024" data-body="Built a linked micromap visualization using RStudio and the micromapST() package to explore pancreatic cancer death rates and trends across U.S. states. Combined geospatial and statistical graphics in a single linked view to identify regions with increasing, stable, or decreasing mortality rates — a compact way to pair a map with a ranked statistical chart rather than treating them as separate outputs." data-tagsdisplay="R,micromapST">
+        <div class="meta">Aug – Dec 2024</div>
+        <h3>Pancreatic cancer micromap visualization</h3>
+        <p>Built a linked micromap in RStudio to explore pancreatic cancer mortality trends across U.S. states, pairing geospatial and statistical graphics to flag regions with rising vs. falling rates.</p>
+        <div class="tags"><span>R</span><span>micromapST</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap reveal">
+    <div class="eyebrow">05 — the stack</div>
+    <h2>The arsenal</h2>
+    <p class="sec-intro">Six weapons I reach for daily, and the full toolkit behind them. Click anything tagged to jump to matching projects.</p>
+
+    <div class="arsenal">
+      <div class="weapon" data-tag="de">
+        <div class="wtop"><span class="wname">Python</span><span class="wsub">4+ yrs · every project</span></div>
+        <div class="meter"><div class="fill" data-w="94"></div></div>
+        <div class="wnote">pandas, PySpark, validation frameworks, FastAPI services</div>
+      </div>
+      <div class="weapon" data-tag="db">
+        <div class="wtop"><span class="wname">SQL</span><span class="wsub">4+ yrs · daily driver</span></div>
+        <div class="meter"><div class="fill" data-w="92"></div></div>
+        <div class="wnote">hot-path rewrites, indexing, p95 35s → 18s on 50GB+ datasets</div>
+      </div>
+      <div class="weapon" data-tag="db">
+        <div class="wtop"><span class="wname">PostgreSQL / PostGIS</span><span class="wsub">3+ yrs</span></div>
+        <div class="meter"><div class="fill" data-w="88"></div></div>
+        <div class="wnote">geospatial warehousing, partitioning, sub-300ms spatial queries</div>
+      </div>
+      <div class="weapon" data-tag="de">
+        <div class="wtop"><span class="wname">PySpark</span><span class="wsub">production scale</span></div>
+        <div class="meter"><div class="fill" data-w="82"></div></div>
+        <div class="wnote">partition tuning that cut daily runs from 2.0hrs to 1.4hrs</div>
+      </div>
+      <div class="weapon" data-tag="de">
+        <div class="wtop"><span class="wname">AWS</span><span class="wsub">S3 · Redshift · RDS · Glue</span></div>
+        <div class="meter"><div class="fill" data-w="78"></div></div>
+        <div class="wnote">AWS Academy Data Engineering graduate</div>
+      </div>
+      <div class="weapon" data-tag="viz">
+        <div class="wtop"><span class="wname">Power BI</span><span class="wsub">DAX · dashboards</span></div>
+        <div class="meter"><div class="fill" data-w="80"></div></div>
+        <div class="wnote">KPI dashboards used by 12-15 analysts daily</div>
+      </div>
+    </div>
+
+    <div class="skillgrid" style="margin-top:34px;">
+      <div class="skillgroup">
+        <h4>Also fluent in</h4>
+        <div class="pills"><span data-tag="viz">R</span><span>C / C++</span><span data-tag="de">Databricks</span><span data-tag="de">Snowflake</span><span data-tag="de">Airflow</span><span data-tag="de">ETL / ELT</span><span data-tag="de">data modeling</span></div>
+      </div>
+      <div class="skillgroup">
+        <h4>Cloud & DevOps</h4>
+        <div class="pills"><span data-tag="de">Azure</span><span data-tag="de">Docker</span><span data-tag="de">FastAPI</span><span>Git / CI-CD</span></div>
+      </div>
+      <div class="skillgroup">
+        <h4>Databases</h4>
+        <div class="pills"><span data-tag="db">MySQL</span><span data-tag="db">MongoDB</span><span data-tag="db">Redshift</span></div>
+      </div>
+      <div class="skillgroup">
+        <h4>Visualization & analytics</h4>
+        <div class="pills"><span data-tag="viz">Tableau</span><span data-tag="viz">Superset</span><span data-tag="viz">Plotly</span><span data-tag="viz">ggplot2</span><span data-tag="ml">feature engineering</span><span data-tag="ml">regression</span><span data-tag="ml">ARIMA</span><span data-tag="ml">A/B testing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="creds">
+  <div class="wrap reveal">
+    <div class="eyebrow">06 — education & certifications</div>
+    <div class="twocol">
+      <div class="listcard">
+        <h4>Education</h4>
+        <ul>
+          <li>M.S. Data Analytics<br><span class="sub">George Mason University · GPA 3.73/4.0 · Aug 2024 – May 2026</span></li>
+          <li>B.Tech, Computer Science & Engineering<br><span class="sub">Gyan Ganga Institute of Technology and Sciences · Aug 2020 – Jun 2024</span></li>
+        </ul>
+      </div>
+      <div class="listcard">
+        <h4>Certifications</h4>
+        <ul>
+          <li>AWS Academy Graduate — Data Engineering</li>
+          <li>SQL for Data Analysis / Learning SQL Programming</li>
+          <li>DataCamp — Data Manipulation with dplyr, Modeling with tidymodels</li>
+          <li>Power BI — Dashboards for Beginners</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="eyebrow">07 — contact</div>
+    <h2>Every good story needs a next chapter</h2>
+    <p class="sec-intro">Open to entry-level and early-career data engineering roles.</p>
+    <div class="contact-links">
+      <button class="clink" id="copyEmail">adityaindurkhya@gmail.com <span style="color:var(--dim); font-size:11px;">(click to copy)</span></button>
+      <a class="clink" href="tel:+17039691317">(703) 969-1317</a>
+      <a class="clink" href="https://linkedin.com/in/adityaindurkhya1911" target="_blank" rel="noopener">linkedin.com/in/adityaindurkhya1911</a>
+    </div>
+  </div>
+</section>
+
+<button id="toTop" aria-label="Back to top" title="Back to top">↑</button>
+
+<footer>built with real numbers, no filler · aditya indurkhya, 2026</footer>
+
+<script>
+  const lines = [
+    {p:'$ ', t:'whoami', out:'Aditya Indurkhya — Data Engineer'},
+    {p:'$ ', t:'cat status.log', out:'2+ yrs experience · M.S. Data Analytics @ GMU'},
+    {p:'$ ', t:'uptime --pipelines', out:'99%+ avg uptime across production ETL jobs'}
+  ];
+  const termBody = document.getElementById('termBody');
+  let li = 0;
+  function typeLine(){
+    if(li >= lines.length){ return; }
+    const {p,t,out} = lines[li];
+    const row = document.createElement('div');
+    row.style.marginBottom = '10px';
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 'prompt';
+    promptSpan.textContent = p;
+    const typed = document.createElement('span');
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor2';
+    row.appendChild(promptSpan);
+    row.appendChild(typed);
+    row.appendChild(cursor);
+    termBody.appendChild(row);
+    let ci = 0;
+    const iv = setInterval(()=>{
+      typed.textContent += t[ci];
+      ci++;
+      if(ci >= t.length){
+        clearInterval(iv);
+        cursor.remove();
+        const outEl = document.createElement('div');
+        outEl.className = 'out';
+        outEl.style.marginTop = '2px';
+        outEl.textContent = out;
+        row.appendChild(outEl);
+        li++;
+        setTimeout(typeLine, 260);
+      }
+    }, 26);
+  }
+  typeLine();
+
+  const counters = document.querySelectorAll('.stat .n');
+  let counted = false;
+  function runCounters(){
+    if(counted) return;
+    counted = true;
+    counters.forEach(el=>{
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      let cur = 0;
+      const step = Math.max(1, Math.round(target/30));
+      const iv = setInterval(()=>{
+        cur += step;
+        if(cur >= target){ cur = target; clearInterval(iv); }
+        el.textContent = cur + suffix;
+      }, 24);
+    });
+  }
+  const heroObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) runCounters(); });
+  }, {threshold:.4});
+  heroObserver.observe(document.querySelector('.stats'));
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); revealObserver.unobserve(e.target); }
+    });
+  }, {threshold:.12});
+  revealEls.forEach(el=>revealObserver.observe(el));
+
+  const chips = document.querySelectorAll('#filters .chip');
+  const cards = document.querySelectorAll('#pgrid .card');
+  function applyFilter(f){
+    chips.forEach(c=>c.classList.toggle('active', c.dataset.f===f));
+    cards.forEach(card=>{
+      if(f === 'all' || card.dataset.tags.includes(f)){ card.classList.remove('hide'); }
+      else { card.classList.add('hide'); }
+    });
+  }
+  chips.forEach(chip=>chip.addEventListener('click', ()=>applyFilter(chip.dataset.f)));
+
+  document.querySelectorAll('.skillgroup .pills span[data-tag]').forEach(pill=>{
+    pill.addEventListener('click', ()=>{
+      const tag = pill.dataset.tag;
+      applyFilter(tag);
+      document.getElementById('projects').scrollIntoView({behavior:'smooth', block:'start'});
+      setTimeout(()=>{
+        document.querySelectorAll('#pgrid .card:not(.hide)').forEach(c=>{
+          c.classList.remove('pulse'); void c.offsetWidth; c.classList.add('pulse');
+        });
+      }, 500);
+    });
+  });
+
+  document.querySelectorAll('.stage').forEach(stage=>{
+    const tabs = stage.querySelectorAll('.stab');
+    const panes = stage.querySelectorAll('.pane');
+    tabs.forEach(tab=>{
+      tab.addEventListener('click', ()=>{
+        tabs.forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        panes.forEach(p=>p.classList.toggle('show', p.classList.contains(tab.dataset.pane)));
+      });
+    });
+  });
+
+  const meterObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const f = e.target.querySelector('.fill');
+        f.style.width = f.dataset.w + '%';
+        meterObserver.unobserve(e.target);
+      }
+    });
+  }, {threshold:.4});
+  document.querySelectorAll('.weapon').forEach(w=>{
+    meterObserver.observe(w);
+    w.addEventListener('click', ()=>{
+      applyFilter(w.dataset.tag);
+      document.getElementById('projects').scrollIntoView({behavior:'smooth', block:'start'});
+      setTimeout(()=>{
+        document.querySelectorAll('#pgrid .card:not(.hide)').forEach(c=>{
+          c.classList.remove('pulse'); void c.offsetWidth; c.classList.add('pulse');
+        });
+      }, 500);
+    });
+  });
+
+  const searchBox = document.getElementById('projSearch');
+  let activeF = 'all';
+  const origApplyFilter = applyFilter;
+  applyFilter = function(f){ activeF = f; refreshCards(); };
+  function refreshCards(){
+    chips.forEach(c=>c.classList.toggle('active', c.dataset.f===activeF));
+    const q = searchBox.value.trim().toLowerCase();
+    cards.forEach(card=>{
+      const tagOK = activeF==='all' || card.dataset.tags.includes(activeF);
+      const text = (card.dataset.title + ' ' + card.dataset.body + ' ' + card.dataset.tagsdisplay).toLowerCase();
+      const searchOK = !q || text.includes(q);
+      card.classList.toggle('hide', !(tagOK && searchOK));
+    });
+  }
+  searchBox.addEventListener('input', refreshCards);
+
+  function updateRail(){
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollH = doc.scrollHeight - doc.clientHeight;
+    const pct = scrollH > 0 ? (scrollTop / scrollH) * 100 : 0;
+    document.getElementById('rail-fill').style.height = pct + '%';
+    document.getElementById('packet').style.top = pct + '%';
+    document.getElementById('toTop').classList.toggle('show', scrollTop > 600);
+  }
+  document.getElementById('toTop').addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape'){ document.getElementById('modalOverlay').classList.remove('show'); }
+  });
+  document.addEventListener('scroll', updateRail, {passive:true});
+  updateRail();
+
+  const cdot = document.getElementById('cdot');
+  const cring = document.getElementById('cring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e=>{
+    mx=e.clientX; my=e.clientY;
+    cdot.style.transform = 'translate('+mx+'px,'+my+'px) translate(-50%,-50%)';
+  });
+  function ringLoop(){
+    rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+    cring.style.transform = 'translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';
+    requestAnimationFrame(ringLoop);
+  }
+  ringLoop();
+  document.querySelectorAll('a,button,.card,.chip,.preset,input').forEach(el=>{
+    el.addEventListener('mouseenter', ()=>cring.classList.add('hot'));
+    el.addEventListener('mouseleave', ()=>cring.classList.remove('hot'));
+  });
+
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left)/r.width - .5;
+      const py = (e.clientY - r.top)/r.height - .5;
+      card.style.transform = 'rotateX('+(-py*6)+'deg) rotateY('+(px*6)+'deg) translateZ(0)';
+    });
+    card.addEventListener('mouseleave', ()=>{ card.style.transform = 'rotateX(0) rotateY(0)'; });
+    card.addEventListener('click', ()=>{
+      document.getElementById('modalTitle').textContent = card.dataset.title;
+      document.getElementById('modalMeta').textContent = card.dataset.meta;
+      document.getElementById('modalBody').textContent = card.dataset.body;
+      const tagsWrap = document.getElementById('modalTags');
+      tagsWrap.innerHTML = '';
+      card.dataset.tagsdisplay.split(',').forEach(t=>{
+        const s = document.createElement('span'); s.textContent = t; tagsWrap.appendChild(s);
+      });
+      document.getElementById('modalOverlay').classList.add('show');
+    });
+  });
+  document.getElementById('modalClose').addEventListener('click', ()=>document.getElementById('modalOverlay').classList.remove('show'));
+  document.getElementById('modalOverlay').addEventListener('click', e=>{
+    if(e.target.id==='modalOverlay') e.currentTarget.classList.remove('show');
+  });
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 1800);
+  }
+  document.getElementById('copyEmail').addEventListener('click', ()=>{
+    navigator.clipboard.writeText('adityaindurkhya@gmail.com').then(()=>showToast('copied to clipboard'));
+  });
+
+  const DB = {
+    experience: [
+      {company:"D'Festo Private Limited", role:'Data Engineering Intern', dates:'2021-05 to 2022-05', highlight:'built first ETL pipeline'},
+      {company:'ICSS', role:'Data Engineer', dates:'2022-07 to 2023-08', highlight:'scaled to 12M+ records/mo'},
+      {company:'George Mason University', role:'M.S. Data Analytics', dates:'2024-08 to 2026-05', highlight:'led ClimateAI capstone'}
+    ],
+    projects: [
+      {name:'ClimateAI', tag:'de', dates:'2026-01/2026-05', tagline:'geospatial ETL warehouse'},
+      {name:'Employee Attrition Modeling', tag:'ml', dates:'2025-01/2025-05', tagline:'attrition driver classification'},
+      {name:'Pavement Deterioration Analysis', tag:'ml', dates:'2024-08/2024-12', tagline:'random forest vs linear regression'},
+      {name:'Veggie Mingle', tag:'ml', dates:'2025-09/2025-11', tagline:'matching algorithm comparison'},
+      {name:'Airline Revenue Simulation', tag:'sim', dates:'2025-01/2025-05', tagline:'monte carlo seat-mix optimization'},
+      {name:'Stochastic Finance & CLV', tag:'sim', dates:'2025-01/2025-05', tagline:'retirement + CLV modeling'},
+      {name:'Credit Card Churn', tag:'ml', dates:'2025-01/2025-03', tagline:'churn classification pipeline'},
+      {name:'Glacier Data Exploration', tag:'viz', dates:'2024-08/2024-12', tagline:'glacier inventory analysis'},
+      {name:'Library Management System', tag:'db', dates:'2024-08/2024-12', tagline:'normalized MySQL schema'},
+      {name:'Pancreatic Cancer Micromap', tag:'viz', dates:'2024-08/2024-12', tagline:'linked micromap in R'}
+    ],
+    skills: [
+      {category:'language', name:'Python'}, {category:'language', name:'SQL'}, {category:'language', name:'R'},
+      {category:'engineering', name:'PySpark'}, {category:'engineering', name:'Airflow'}, {category:'engineering', name:'Snowflake'},
+      {category:'cloud', name:'AWS'}, {category:'cloud', name:'Azure'}, {category:'cloud', name:'Docker'},
+      {category:'database', name:'PostgreSQL'}, {category:'database', name:'MySQL'}, {category:'database', name:'MongoDB'},
+      {category:'bi', name:'Power BI'}, {category:'bi', name:'Tableau'}
+    ],
+    contact: [
+      {field:'email', value:'adityaindurkhya@gmail.com'},
+      {field:'phone', value:'(703) 969-1317'},
+      {field:'linkedin', value:'linkedin.com/in/adityaindurkhya1911'},
+      {field:'location', value:'Seattle, WA'}
+    ]
+  };
+
+  function renderTable(rows){
+    if(!rows.length){ return '<div class="hint">(0 rows)</div>'; }
+    const cols = Object.keys(rows[0]);
+    let html = '<table><thead><tr>' + cols.map(c=>'<th>'+c+'</th>').join('') + '</tr></thead><tbody>';
+    rows.forEach(r=>{
+      html += '<tr>' + cols.map(c=>'<td>'+r[c]+'</td>').join('') + '</tr>';
+    });
+    html += '</tbody></table>';
+    return html;
+  }
+
+  function runQuery(q){
+    const out = document.getElementById('sqlOut');
+    const raw = q.trim();
+    if(!raw){ out.innerHTML = '<div class="err">ERROR: syntax error at end of input</div>'; return; }
+
+    if(/select\s*\*\s*from\s+easter_egg/i.test(raw)){
+      out.innerHTML = "<div class=\"egg\">you found it. most people just scroll — you actually queried the database.<br>if you're reading this, you're exactly the kind of person I want reviewing my pipelines. reach out.</div>";
+      return;
+    }
+    if(/drop\s+table/i.test(raw)){
+      out.innerHTML = '<div class="err">ERROR:  cannot drop table "career" because other objects depend on it</div><div class="hint">DETAIL:  6 recruiters and 2 hiring managers depend on this table.</div>';
+      return;
+    }
+
+    const fromMatch = raw.match(/from\s+([a-zA-Z_]+)/i);
+    if(!fromMatch){
+      out.innerHTML = '<div class="err">ERROR: syntax error at or near "'+raw.split(' ')[0]+'"</div>';
+      return;
+    }
+    const table = fromMatch[1].toLowerCase();
+    if(!DB[table]){
+      out.innerHTML = '<div class="err">ERROR:  relation "'+table+'" does not exist</div><div class="hint">LINE 1: '+raw+'</div><div class="hint">HINT: try experience, projects, skills, or contact.</div>';
+      return;
+    }
+    let rows = DB[table];
+    const whereMatch = raw.match(/where\s+([a-zA-Z_]+)\s*=\s*'?([^'";]+)'?/i);
+    if(whereMatch){
+      const col = whereMatch[1].toLowerCase();
+      const val = whereMatch[2].toLowerCase().trim();
+      rows = rows.filter(r => r[col] !== undefined && String(r[col]).toLowerCase().includes(val));
+    }
+    const ms = 4 + rows.length * 3;
+    out.innerHTML = renderTable(rows) + '<div class="meta-row">'+rows.length+' row'+(rows.length===1?'':'s')+' returned in '+ms+'ms</div>';
+  }
+
+  document.querySelectorAll('.preset').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.getElementById('sqlInput').value = btn.dataset.q;
+      runQuery(btn.dataset.q);
+    });
+  });
+  document.getElementById('runBtn').addEventListener('click', ()=>runQuery(document.getElementById('sqlInput').value));
+  document.getElementById('sqlInput').addEventListener('keydown', e=>{
+    if(e.key==='Enter'){ runQuery(e.target.value); }
+  });
+  runQuery("SELECT * FROM projects WHERE tag='de';");
+
+  const canvas = document.getElementById('netcanvas');
+  const ctx = canvas.getContext('2d');
+  let W,H,nodes=[];
+  function sizeCanvas(){
+    const hero = document.getElementById('hero');
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+  function initNodes(){
+    nodes = [];
+    const count = Math.min(46, Math.floor((W*H)/26000));
+    for(let i=0;i<count;i++){
+      nodes.push({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25});
+    }
+  }
+  sizeCanvas(); initNodes();
+  window.addEventListener('resize', ()=>{ sizeCanvas(); initNodes(); });
+  function drawNet(){
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(n=>{
+      n.x += n.vx; n.y += n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+    });
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const a=nodes[i], b=nodes[j];
+        const d = Math.hypot(a.x-b.x, a.y-b.y);
+        if(d<130){
+          ctx.strokeStyle = 'rgba(79,195,161,'+(0.14*(1-d/130))+')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+        }
+      }
+    }
+    nodes.forEach(n=>{
+      ctx.fillStyle = 'rgba(79,195,161,.5)';
+      ctx.beginPath(); ctx.arc(n.x,n.y,1.6,0,Math.PI*2); ctx.fill();
+    });
+    requestAnimationFrame(drawNet);
+  }
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){ drawNet(); }
+</script>
+</body>
+</html>
